@@ -68,6 +68,47 @@ class HashMap {
 
     return null;
   }
+
+  has(key) {
+    const index = this.hash(key);
+    let current = this.buckets[index];
+    let prev = null;
+
+    while (current) {
+      if (current.key === key) {
+        return true;
+      }
+
+      prev = current;
+      current = current.nextNode;
+    }
+
+    return false;
+  }
+
+  remove(key) {
+    const index = this.hash(key);
+    let current = this.buckets[index];
+
+    if (current.key === key) {
+      this.buckets[index] = current.nextNode;
+      return true;
+    }
+
+    let prev = current;
+
+    while (current.nextNode) {
+      if (current.nextNode.key === key) {
+        prev.nextNode = current.nextNode;
+        return true;
+      }
+
+      prev = current;
+      current = current.nextNode;
+    }
+
+    return false;
+  }
 }
 
 export default HashMap;

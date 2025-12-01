@@ -17,5 +17,7 @@ test.set("lion", "golden");
 
 test.set("moon", "silver");
 
-// console.log(test.buckets);
-console.log(test.get("lion"));
+console.log(test.remove("grape"));
+console.log(test.buckets);
+// console.log(test.get("lion"));
+// console.log(test.has("hat"));
