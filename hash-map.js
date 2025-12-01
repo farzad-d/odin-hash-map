@@ -129,7 +129,21 @@ class HashMap {
     for (let i = 0; i < this.capacity; i++) {
       this.buckets[i] = null;
     }
-    return "All entries cleared!";
+  }
+
+  keys() {
+    let keys = [];
+
+    for (let i = 0; i < this.capacity; i++) {
+      let current = this.buckets[i];
+
+      while (current) {
+        keys.push(current.key);
+        current = current.nextNode;
+      }
+    }
+
+    return keys;
   }
 }
 
