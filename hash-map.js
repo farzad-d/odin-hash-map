@@ -160,6 +160,21 @@ class HashMap {
 
     return values;
   }
+
+  entries() {
+    let entries = [];
+
+    for (let i = 0; i < this.capacity; i++) {
+      let current = this.buckets[i];
+
+      while (current) {
+        entries.push([current.key, current.value]);
+        current = current.nextNode;
+      }
+    }
+
+    return entries;
+  }
 }
 
 export default HashMap;

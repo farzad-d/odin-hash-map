@@ -22,6 +22,7 @@ test.set("moon", "silver");
 // console.log(test.has("hat"));
 // console.log(test.length());
 // console.log(test.keys());
-console.log(test.values());
+// console.log(test.values());
+console.log(test.entries());
 
 // console.log(test.buckets);
