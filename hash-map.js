@@ -51,7 +51,7 @@ class HashMap {
       current = current.nextNode;
     }
 
-    prev.newNode = newNode;
+    prev.nextNode = newNode;
   }
 }
 
