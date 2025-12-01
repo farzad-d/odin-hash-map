@@ -15,4 +15,7 @@ test.set("jacket", "blue");
 test.set("kite", "pink");
 test.set("lion", "golden");
 
-console.log(test.buckets);
+test.set("moon", "silver");
+
+// console.log(test.buckets);
+console.log(test.get("lion"));

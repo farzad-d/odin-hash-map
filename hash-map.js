@@ -21,24 +21,22 @@ class HashMap {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
     }
 
+    if (hashCode < 0 || hashCode >= this.buckets.length)
+      throw new Error("Trying to access index out of bounds");
+
     return hashCode;
   }
 
   set(key, value) {
     const index = this.hash(key);
-
-    if (index < 0 || index >= this.buckets.length)
-      throw new Error("Trying to access index out of bounds");
-
     const newNode = new Node(key, value);
-    let bucket = this.buckets[index];
+    let current = this.buckets[index];
 
-    if (!bucket) {
+    if (!current) {
       this.buckets[index] = newNode;
       return;
     }
 
-    let current = bucket;
     let prev = null;
 
     while (current) {
@@ -52,6 +50,23 @@ class HashMap {
     }
 
     prev.nextNode = newNode;
+  }
+
+  get(key) {
+    const index = this.hash(key);
+    let current = this.buckets[index];
+    let prev = null;
+
+    while (current) {
+      if (current.key === key) {
+        return current.value;
+      }
+
+      prev = current;
+      current = current.nextNode;
+    }
+
+    return null;
   }
 }
 
