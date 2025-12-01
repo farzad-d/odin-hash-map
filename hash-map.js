@@ -145,6 +145,21 @@ class HashMap {
 
     return keys;
   }
+
+  values() {
+    let values = [];
+
+    for (let i = 0; i < this.capacity; i++) {
+      let current = this.buckets[i];
+
+      while (current) {
+        values.push(current.value);
+        current = current.nextNode;
+      }
+    }
+
+    return values;
+  }
 }
 
 export default HashMap;
