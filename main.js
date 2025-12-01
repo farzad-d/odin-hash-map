@@ -14,10 +14,10 @@ test.set("ice cream", "white");
 test.set("jacket", "blue");
 test.set("kite", "pink");
 test.set("lion", "golden");
-
 test.set("moon", "silver");
 
 console.log(test.remove("grape"));
 console.log(test.buckets);
 // console.log(test.get("lion"));
 // console.log(test.has("hat"));
+console.log(test.length());

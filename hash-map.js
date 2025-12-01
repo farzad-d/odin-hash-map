@@ -109,6 +109,21 @@ class HashMap {
 
     return false;
   }
+
+  length() {
+    let count = 0;
+
+    for (let i = 0; i < this.capacity; i++) {
+      let current = this.buckets[i];
+
+      while (current) {
+        count++;
+        current = current.nextNode;
+      }
+    }
+
+    return count;
+  }
 }
 
 export default HashMap;
