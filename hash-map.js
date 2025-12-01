@@ -124,6 +124,13 @@ class HashMap {
 
     return count;
   }
+
+  clear() {
+    for (let i = 0; i < this.capacity; i++) {
+      this.buckets[i] = null;
+    }
+    return "All entries cleared!";
+  }
 }
 
 export default HashMap;
