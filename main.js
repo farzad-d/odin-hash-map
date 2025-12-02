@@ -1,28 +1,53 @@
 import HashMap from "./hash-map.js";
+import HashSet from "./hash-set.js";
 
-const test = new HashMap();
+const sampleMap = new HashMap();
 
-test.set("apple", "red");
-test.set("banana", "yellow");
-test.set("carrot", "orange");
-test.set("dog", "brown");
-test.set("elephant", "gray");
-test.set("frog", "green");
-test.set("grape", "purple");
-test.set("hat", "black");
-test.set("ice cream", "white");
-test.set("jacket", "blue");
-test.set("kite", "pink");
-test.set("lion", "golden");
-test.set("moon", "silver");
+sampleMap.set("apple", "red");
+sampleMap.set("banana", "yellow");
+sampleMap.set("carrot", "orange");
+sampleMap.set("dog", "brown");
+sampleMap.set("elephant", "gray");
+sampleMap.set("frog", "green");
+sampleMap.set("grape", "purple");
+sampleMap.set("hat", "black");
+sampleMap.set("ice cream", "white");
+sampleMap.set("jacket", "blue");
+sampleMap.set("kite", "pink");
+sampleMap.set("lion", "golden");
+sampleMap.set("moon", "silver");
 
-// console.log(test.remove("grape"));
-// test.clear();
-// console.log(test.get("lion"));
-// console.log(test.has("hat"));
-// console.log(test.keys());
-// console.log(test.values());
-// console.log(test.entries());
-// console.log(test.length);
+// sampleMap.clear();
+// console.log(sampleMap.remove("grape"));
+// console.log(sampleMap.get("lion"));
+// console.log(sampleMap.has("hat"));
+// console.log(sampleMap.keys());
+// console.log(sampleMap.values());
+// console.log(sampleMap.entries());
+// console.log(sampleMap.length);
+console.log(sampleMap.buckets);
 
-console.log(test.buckets);
+// ------------------------------------------------------------
+
+// const sampleSet = new HashSet();
+
+// sampleSet.set("apple");
+// sampleSet.set("banana");
+// sampleSet.set("carrot");
+// sampleSet.set("dog");
+// sampleSet.set("elephant");
+// sampleSet.set("frog");
+// sampleSet.set("grape");
+// sampleSet.set("hat");
+// sampleSet.set("ice cream");
+// sampleSet.set("jacket");
+// sampleSet.set("kite");
+// sampleSet.set("lion");
+// sampleSet.set("moon");
+
+// sampleSet.clear();
+// console.log(sampleSet.remove("grape"));
+// console.log(sampleSet.has("hat"));
+// console.log(sampleSet.entries());
+// console.log(sampleSet.length);
+// console.log(sampleSet.buckets);

@@ -2,7 +2,7 @@ class Entry {
   constructor(key, value) {
     this.key = key;
     this.value = value;
-    this.nextNode = null;
+    this.nextEntry = null;
   }
 }
 
@@ -30,11 +30,11 @@ class HashMap {
     const loadRatio = this.length / this.capacity;
     if (loadRatio < this.loadFactor) return;
 
-    const savedEntries = this.entries();
+    const oldEntries = this.entries();
     this.capacity *= 2;
     this.buckets = new Array(this.capacity).fill(null);
     this.length = 0;
-    savedEntries.forEach(([key, value]) => this.set(key, value));
+    oldEntries.forEach(([key, value]) => this.set(key, value));
   }
 
   set(key, value) {
@@ -57,10 +57,10 @@ class HashMap {
         return;
       }
       prev = current;
-      current = current.nextNode;
+      current = current.nextEntry;
     }
 
-    prev.nextNode = newEntry;
+    prev.nextEntry = newEntry;
     this.length++;
   }
 
@@ -70,7 +70,7 @@ class HashMap {
 
     while (current) {
       if (current.key === key) return current.value;
-      current = current.nextNode;
+      current = current.nextEntry;
     }
 
     return null;
@@ -82,7 +82,7 @@ class HashMap {
 
     while (current) {
       if (current.key === key) return true;
-      current = current.nextNode;
+      current = current.nextEntry;
     }
 
     return false;
@@ -92,21 +92,21 @@ class HashMap {
     const index = this.hash(key);
     let current = this.buckets[index];
 
-    if (!current) return;
+    if (!current) return false;
 
     if (current.key === key) {
-      this.buckets[index] = current.nextNode;
+      this.buckets[index] = current.nextEntry;
       this.length--;
       return true;
     }
 
-    while (current.nextNode) {
-      if (current.nextNode.key === key) {
-        current.nextNode = current.nextNode.nextNode;
+    while (current.nextEntry) {
+      if (current.nextEntry.key === key) {
+        current.nextEntry = current.nextEntry.nextEntry;
         this.length--;
         return true;
       }
-      current = current.nextNode;
+      current = current.nextEntry;
     }
 
     return false;
@@ -125,7 +125,7 @@ class HashMap {
 
       while (current) {
         keys.push(current.key);
-        current = current.nextNode;
+        current = current.nextEntry;
       }
     }
 
@@ -140,7 +140,7 @@ class HashMap {
 
       while (current) {
         values.push(current.value);
-        current = current.nextNode;
+        current = current.nextEntry;
       }
     }
 
@@ -155,7 +155,7 @@ class HashMap {
 
       while (current) {
         entries.push([current.key, current.value]);
-        current = current.nextNode;
+        current = current.nextEntry;
       }
     }
 
