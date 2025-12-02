@@ -20,9 +20,9 @@ test.set("moon", "silver");
 // test.clear();
 // console.log(test.get("lion"));
 // console.log(test.has("hat"));
-// console.log(test.length());
 // console.log(test.keys());
 // console.log(test.values());
-console.log(test.entries());
+// console.log(test.entries());
+// console.log(test.length);
 
-// console.log(test.buckets);
+console.log(test.buckets);

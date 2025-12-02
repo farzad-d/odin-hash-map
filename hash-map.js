@@ -1,4 +1,4 @@
-class Node {
+class Entry {
   constructor(key, value) {
     this.key = key;
     this.value = value;
@@ -8,12 +8,14 @@ class Node {
 
 class HashMap {
   constructor(capacity = 16) {
-    this.capacity = capacity;
+    this.length = 0;
     this.loadFactor = 0.75;
+    this.capacity = capacity;
     this.buckets = new Array(this.capacity).fill(null);
   }
 
   hash(key) {
+    key = String(key);
     let hashCode = 0;
 
     const primeNumber = 31;
@@ -21,48 +23,53 @@ class HashMap {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
     }
 
-    if (hashCode < 0 || hashCode >= this.buckets.length)
-      throw new Error("Trying to access index out of bounds");
-
     return hashCode;
   }
 
+  ensureCapacity() {
+    const loadRatio = this.length / this.capacity;
+    if (loadRatio < this.loadFactor) return;
+
+    const savedEntries = this.entries();
+    this.capacity *= 2;
+    this.buckets = new Array(this.capacity).fill(null);
+    this.length = 0;
+    savedEntries.forEach(([key, value]) => this.set(key, value));
+  }
+
   set(key, value) {
+    this.ensureCapacity();
     const index = this.hash(key);
-    const newNode = new Node(key, value);
+    const newEntry = new Entry(key, value);
     let current = this.buckets[index];
 
     if (!current) {
-      this.buckets[index] = newNode;
+      this.buckets[index] = newEntry;
+      this.length++;
       return;
     }
 
     let prev = null;
 
     while (current) {
-      if (current.key === newNode.key) {
-        current.value = newNode.value;
+      if (current.key === key) {
+        current.value = value;
         return;
       }
-
       prev = current;
       current = current.nextNode;
     }
 
-    prev.nextNode = newNode;
+    prev.nextNode = newEntry;
+    this.length++;
   }
 
   get(key) {
     const index = this.hash(key);
     let current = this.buckets[index];
-    let prev = null;
 
     while (current) {
-      if (current.key === key) {
-        return current.value;
-      }
-
-      prev = current;
+      if (current.key === key) return current.value;
       current = current.nextNode;
     }
 
@@ -72,14 +79,9 @@ class HashMap {
   has(key) {
     const index = this.hash(key);
     let current = this.buckets[index];
-    let prev = null;
 
     while (current) {
-      if (current.key === key) {
-        return true;
-      }
-
-      prev = current;
+      if (current.key === key) return true;
       current = current.nextNode;
     }
 
@@ -90,45 +92,29 @@ class HashMap {
     const index = this.hash(key);
     let current = this.buckets[index];
 
+    if (!current) return;
+
     if (current.key === key) {
       this.buckets[index] = current.nextNode;
+      this.length--;
       return true;
     }
 
-    let prev = current;
-
     while (current.nextNode) {
       if (current.nextNode.key === key) {
-        prev.nextNode = current.nextNode;
+        current.nextNode = current.nextNode.nextNode;
+        this.length--;
         return true;
       }
-
-      prev = current;
       current = current.nextNode;
     }
 
     return false;
   }
 
-  length() {
-    let count = 0;
-
-    for (let i = 0; i < this.capacity; i++) {
-      let current = this.buckets[i];
-
-      while (current) {
-        count++;
-        current = current.nextNode;
-      }
-    }
-
-    return count;
-  }
-
   clear() {
-    for (let i = 0; i < this.capacity; i++) {
-      this.buckets[i] = null;
-    }
+    this.buckets = new Array(this.capacity).fill(null);
+    this.length = 0;
   }
 
   keys() {
